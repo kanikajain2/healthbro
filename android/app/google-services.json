@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "178371786788",
+    "project_id": "health-broo",
+    "storage_bucket": "health-broo.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:178371786788:android:f95b394a9193acd1b280b1",
+        "android_client_info": {
+          "package_name": "com.example.health_broo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDRPckyD8baxXQ9K9HAHLFP8oODOk8Ihqs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
