@@ -19,12 +19,6 @@ class _DoctorformState extends State<Doctorform> {
   var about = TextEditingController();
 
   Map<String, dynamic>? doctorData;
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   loadUserData();
-  // }
-
   void submitDoctorDetails() async {
     final FirebaseAuth _auth = FirebaseAuth.instance;
     final DatabaseReference _dbRef = FirebaseDatabase.instance.ref().child(

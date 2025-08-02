@@ -31,10 +31,10 @@ class MyApp extends StatelessWidget {
           toolbarHeight: 45,
           actionsPadding: EdgeInsets.all(8),
           backgroundColor: Color.fromARGB(255, 152, 188, 201),
-          elevation:
-              10, // shadowColor: const Color.fromARGB(255, 173, 216, 230),
+          //elevation: 10,
+          shadowColor: const Color.fromARGB(255, 173, 216, 230),
           centerTitle: true,
-          surfaceTintColor: const Color.fromARGB(255, 196, 191, 173),
+          //surfaceTintColor: const Color.fromARGB(255, 196, 191, 173),
           //titleTextStyle: TextStyle(fontWeight: FontWeight.w500, fontSize: 20 , color: Colors.black ),
           titleTextStyle: GoogleFonts.alatsi(
             fontWeight: FontWeight.w200,
@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
 
         cardTheme: CardThemeData(
           shadowColor: Colors.black,
-          elevation: 50,
+          elevation: 20,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
