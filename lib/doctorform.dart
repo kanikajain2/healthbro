@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:health_broo/doctordash.dart';
+import 'package:health_broo/login.dart';
 
 class Doctorform extends StatefulWidget {
   const Doctorform({super.key});
@@ -65,7 +66,18 @@ class _DoctorformState extends State<Doctorform> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Professional Details')),
+      appBar: AppBar(
+        title: Text('Professional Details'),
+        flexibleSpace: IconButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => Login()),
+            );
+          },
+          icon: Icon(Icons.arrow_back),
+        ),
+      ),
 
       body: SingleChildScrollView(
         child: Column(

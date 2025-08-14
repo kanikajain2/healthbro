@@ -2,7 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:health_broo/firebase_options.dart';
-import 'package:health_broo/register.dart';
+import 'package:health_broo/frontpage.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
 
       theme: ThemeData(
-        scaffoldBackgroundColor: const Color.fromARGB(255, 250, 249, 227),
+        scaffoldBackgroundColor: const Color(0xFFF9F9F9),
         colorScheme: ColorScheme.fromSeed(
           seedColor: Color.fromARGB(255, 255, 255, 255),
         ),
@@ -31,7 +31,6 @@ class MyApp extends StatelessWidget {
           toolbarHeight: 45,
           actionsPadding: EdgeInsets.all(8),
           backgroundColor: Color.fromARGB(255, 152, 188, 201),
-          //elevation: 10,
           shadowColor: const Color.fromARGB(255, 173, 216, 230),
           centerTitle: true,
           //surfaceTintColor: const Color.fromARGB(255, 196, 191, 173),
@@ -44,8 +43,9 @@ class MyApp extends StatelessWidget {
         ),
 
         cardTheme: CardThemeData(
+          color: Colors.white,
           shadowColor: Colors.black,
-          elevation: 20,
+          elevation: 30,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
@@ -58,9 +58,12 @@ class MyApp extends StatelessWidget {
         ),
 
         inputDecorationTheme: InputDecorationTheme(
+          prefixIconColor: Color.fromARGB(255, 103, 138, 151),
+          iconColor: Color.fromARGB(255, 64, 128, 151),
+          fillColor: Colors.white,
           contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
           filled: true,
-          hoverColor: Color.fromARGB(255, 193, 224, 235),
+          hoverColor: Color.fromARGB(255, 225, 232, 235),
           border: OutlineInputBorder(
             gapPadding: 0,
             borderRadius: BorderRadius.circular(5),
@@ -78,7 +81,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
 
-      home: Register(),
+      home: HealthBroWelcomePage(),
     );
   }
 }
