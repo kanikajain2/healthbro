@@ -108,7 +108,7 @@ class _DashboardState extends State<Dashboard> {
               onPressed: () {
                 Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(builder: (context) => Userprofile()),
+                  MaterialPageRoute(builder: (context) => UserProfile()),
                 );
               },
             ),

@@ -1,7 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:health_broo/extra.dart';
 import 'package:health_broo/firebase_options.dart';
 import 'package:health_broo/frontpage.dart';
 
@@ -62,7 +61,7 @@ class MyApp extends StatelessWidget {
             height: 1.5,
           ),
           prefixIconColor: Color.fromARGB(255, 103, 138, 151),
-          iconColor: Color.fromARGB(255, 64, 128, 151),
+          iconColor: Colors.indigo,
           fillColor: Colors.white,
           contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
           filled: true,
