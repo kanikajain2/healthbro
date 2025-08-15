@@ -74,160 +74,170 @@ class _SympcheckerState extends State<Sympchecker> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("Symptom Checker"), centerTitle: true),
-      body: Padding(
-        padding: const EdgeInsets.all(14.0),
-        child: Column(
-          children: [
-            Card(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Check your symptoms',
-                      style: GoogleFonts.cairo(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    Text(
-                      'Enter symptoms one by one and click Analyse:',
-                      style: GoogleFonts.cairo(fontSize: 15),
-                    ),
-                    const SizedBox(height: 14),
-                    TextField(
-                      controller: _controller,
-                      decoration: InputDecoration(
-                        hintText: 'Enter a symptom',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        suffixIcon: IconButton(
-                          icon: const Icon(Icons.add),
-                          onPressed: _addSymptom,
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              Colors.teal.shade50,
+              Colors.purple.shade50,
+              Colors.pink.shade50,
+            ],
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(14.0),
+          child: Column(
+            children: [
+              Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Check your symptoms:',
+                        style: GoogleFonts.cairo(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
-                      onSubmitted: (_) => _addSymptom(),
-                    ),
-                    const SizedBox(height: 12),
-                    Wrap(
-                      spacing: 8,
-                      children:
-                          _symptomList.map((symptom) {
-                            return Chip(
-                              label: Text(symptom),
-                              backgroundColor: const Color.fromARGB(
-                                255,
-                                199,
-                                207,
-                                235,
-                              ),
-                              deleteIcon: const Icon(Icons.close),
-                              onDeleted: () {
-                                setState(() {
-                                  _symptomList.remove(symptom);
-                                });
-                              },
-                            );
-                          }).toList(),
-                    ),
-                    const SizedBox(height: 20),
-                    Center(
-                      child: ElevatedButton.icon(
-                        onPressed:
-                            _symptomList.isEmpty ? null : _fetchPrediction,
-                        style: ElevatedButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 20,
-                            vertical: 12,
+                      const SizedBox(height: 10),
+                      Text(
+                        'Enter symptoms one by one and click Analyse:',
+                        style: GoogleFonts.manrope(fontSize: 15),
+                      ),
+                      const SizedBox(height: 14),
+                      TextField(
+                        controller: _controller,
+                        decoration: InputDecoration(
+                          hintText: 'Enter a symptom',
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
                           ),
-                          backgroundColor: const Color.fromARGB(
-                            255,
-                            241,
-                            135,
-                            135,
-                          ),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
+                          suffixIcon: IconButton(
+                            icon: const Icon(Icons.add),
+                            onPressed: _addSymptom,
                           ),
                         ),
+                        onSubmitted: (_) => _addSymptom(),
+                      ),
+                      const SizedBox(height: 12),
+                      Wrap(
+                        spacing: 8,
+                        children:
+                            _symptomList.map((symptom) {
+                              return Chip(
+                                elevation: 20,
+                                label: Text(symptom),
+                                backgroundColor: Colors.white,
+                                deleteIcon: const Icon(Icons.close),
+                                onDeleted: () {
+                                  setState(() {
+                                    _symptomList.remove(symptom);
+                                  });
+                                },
+                              );
+                            }).toList(),
+                      ),
+                      const SizedBox(height: 20),
+                      Center(
+                        child: ElevatedButton.icon(
+                          onPressed:
+                              _symptomList.isEmpty ? null : _fetchPrediction,
+                          style: ElevatedButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 20,
+                              vertical: 12,
+                            ),
+                            backgroundColor: const Color.fromARGB(
+                              255,
+                              241,
+                              135,
+                              135,
+                            ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                          ),
 
-                        icon: const Icon(Icons.analytics),
-                        label: const Text(
-                          'Analyse Symptoms',
-                          style: TextStyle(fontSize: 16, color: Colors.white),
+                          icon: const Icon(Icons.analytics),
+                          label: const Text(
+                            'Analyse Symptoms',
+                            style: TextStyle(fontSize: 16, color: Colors.white),
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ),
 
-            const SizedBox(height: 20),
+              const SizedBox(height: 20),
 
-            Expanded(
-              child:
-                  _results.isEmpty
-                      ? const Center(child: Text(" No predictions yet."))
-                      : ListView.builder(
-                        itemCount: _results.length,
-                        itemBuilder: (context, index) {
-                          final item = _results[index];
-                          return Card(
-                            margin: const EdgeInsets.symmetric(vertical: 8),
-                            elevation: 3,
-                            color: const Color.fromARGB(255, 214, 220, 245),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            child: ListTile(
-                              contentPadding: const EdgeInsets.symmetric(
-                                horizontal: 16,
-                                vertical: 12,
+              Expanded(
+                child:
+                    _results.isEmpty
+                        ? const Center(child: Text(" No predictions yet."))
+                        : ListView.builder(
+                          itemCount: _results.length,
+                          itemBuilder: (context, index) {
+                            final item = _results[index];
+                            return Card(
+                              margin: const EdgeInsets.symmetric(vertical: 8),
+                              elevation: 3,
+                              color: const Color.fromARGB(255, 214, 220, 245),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
                               ),
-                              title: Text(
-                                "Symptoms: ${item['symptoms'].join(', ')}",
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
+                              child: ListTile(
+                                contentPadding: const EdgeInsets.symmetric(
+                                  horizontal: 16,
+                                  vertical: 12,
+                                ),
+                                title: Text(
+                                  "Symptoms: ${item['symptoms'].join(', ')}",
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                subtitle: Padding(
+                                  padding: const EdgeInsets.only(top: 6),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text("Severity: ${item['severity']}"),
+                                      Text(
+                                        "Suggested Doctor: ${item['doctorsuggestion']}",
+                                      ),
+                                      Text(
+                                        "Date: ${item['createdAt'].toString().substring(0, 10)}",
+                                      ),
+                                      Text(
+                                        "Time: ${item['createdAt'].toString().substring(11, 16)}",
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                trailing: IconButton(
+                                  icon: const Icon(
+                                    Icons.delete,
+                                    color: Color.fromARGB(255, 101, 137, 255),
+                                  ),
+                                  onPressed: () => _removeResult(index),
                                 ),
                               ),
-                              subtitle: Padding(
-                                padding: const EdgeInsets.only(top: 6),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text("Severity: ${item['severity']}"),
-                                    Text(
-                                      "Suggested Doctor: ${item['doctorsuggestion']}",
-                                    ),
-                                    Text(
-                                      "Date: ${item['createdAt'].toString().substring(0, 10)}",
-                                    ),
-                                    Text(
-                                      "Time: ${item['createdAt'].toString().substring(11, 16)}",
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              trailing: IconButton(
-                                icon: const Icon(
-                                  Icons.delete,
-                                  color: Color.fromARGB(255, 101, 137, 255),
-                                ),
-                                onPressed: () => _removeResult(index),
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-            ),
-          ],
+                            );
+                          },
+                        ),
+              ),
+            ],
+          ),
         ),
       ),
     );

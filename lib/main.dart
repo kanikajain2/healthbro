@@ -61,7 +61,7 @@ class MyApp extends StatelessWidget {
             height: 1.5,
           ),
           prefixIconColor: Color.fromARGB(255, 103, 138, 151),
-          iconColor: Color.fromARGB(255, 64, 128, 151),
+          iconColor: Colors.indigo,
           fillColor: Colors.white,
           contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
           filled: true,

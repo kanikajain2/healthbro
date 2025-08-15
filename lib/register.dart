@@ -73,14 +73,17 @@ class _RegisterState extends State<Register> {
       appBar: AppBar(
         title: Text('HealthBro'),
         automaticallyImplyLeading: false,
-        flexibleSpace: IconButton(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => HealthBroWelcomePage()),
-            );
-          },
-          icon: Icon(Icons.arrow_back),
+        flexibleSpace: Align(
+          alignment: Alignment.topLeft,
+          child: IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => HealthBroWelcomePage()),
+              );
+            },
+            icon: Icon(Icons.arrow_back),
+          ),
         ),
       ),
       body: SingleChildScrollView(
@@ -98,7 +101,11 @@ class _RegisterState extends State<Register> {
                       Center(
                         child: Text(
                           'Create an Account'.toUpperCase(),
-                          style: GoogleFonts.manrope(color: Colors.indigo),
+                          style: GoogleFonts.manrope(
+                            color: Colors.indigo,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                          ),
                         ),
                       ),
                       SizedBox(height: 10),

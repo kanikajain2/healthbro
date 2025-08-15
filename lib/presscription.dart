@@ -24,13 +24,12 @@ class _PrescriptionPageState extends State<PrescriptionPage> {
     try {
       final res = await http.get(
         Uri.parse(
-          "http://localhost:5000/api/prescriptions?email=${widget.email}",
+          "http://127.0.0.1:5000/api/prescriptions?email=${widget.email}",
         ),
       );
 
       if (res.statusCode == 200) {
         final List data = jsonDecode(res.body);
-        // normalize soap_note to always be a Map
         for (var p in data) {
           if (p['soap_note'] is String) {
             try {
@@ -55,54 +54,187 @@ class _PrescriptionPageState extends State<PrescriptionPage> {
   }
 
   Widget buildSoapNote(dynamic soapNote) {
-    if (soapNote == null) {
-      return const Text("No SOAP note available.");
+    if (soapNote == null || soapNote is! Map || soapNote.isEmpty) {
+      return const SizedBox.shrink();
     }
-    if (soapNote is! Map) {
-      return Text("SOAP Note: $soapNote");
+
+    Widget buildSoapDetail(String title, String? value) {
+      return Padding(
+        padding: const EdgeInsets.only(top: 8.0),
+        child: RichText(
+          text: TextSpan(
+            style: DefaultTextStyle.of(context).style,
+            children: <TextSpan>[
+              TextSpan(
+                text: '$title: ',
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black54,
+                ),
+              ),
+              TextSpan(text: value ?? 'N/A'),
+            ],
+          ),
+        ),
+      );
     }
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text("📝 Subjective: ${soapNote['subjective'] ?? 'N/A'}"),
-        Text("📊 Objective: ${soapNote['objective'] ?? 'N/A'}"),
-        Text("🩺 Assessment: ${soapNote['assessment'] ?? 'N/A'}"),
-        Text("📅 Plan: ${soapNote['plan'] ?? 'N/A'}"),
-      ],
+
+    return Container(
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Colors.teal.shade50,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            "Doctor's SOAP Note",
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: Colors.teal,
+            ),
+          ),
+          const Divider(height: 15),
+          buildSoapDetail("📝 Subjective", soapNote['subjective']),
+          buildSoapDetail("📊 Objective", soapNote['objective']),
+          buildSoapDetail("🩺 Assessment", soapNote['assessment']),
+          buildSoapDetail("📅 Plan", soapNote['plan']),
+        ],
+      ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Prescriptions")),
-      body:
-          isLoading
-              ? const Center(child: CircularProgressIndicator())
-              : prescriptions.isEmpty
-              ? const Center(child: Text("No prescriptions found."))
-              : ListView.builder(
-                itemCount: prescriptions.length,
-                itemBuilder: (context, index) {
-                  final p = prescriptions[index];
-                  return Card(
-                    margin: const EdgeInsets.all(8),
-                    child: Padding(
-                      padding: const EdgeInsets.all(12),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios_new, color: Colors.grey[800]),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        title: const Text("My Prescriptions"),
+        centerTitle: true,
+      ),
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              Colors.teal.shade50,
+              Colors.purple.shade50,
+              Colors.pink.shade50,
+            ],
+          ),
+        ),
+        child:
+            isLoading
+                ? const Center(child: CircularProgressIndicator())
+                : prescriptions.isEmpty
+                ? Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.medical_information_outlined,
+                        size: 80,
+                        color: Colors.grey[400],
+                      ),
+                      const SizedBox(height: 20),
+                      const Text(
+                        "No Prescriptions Found",
+                        style: TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      Text(
+                        "Your medical records will appear here.",
+                        style: TextStyle(fontSize: 16, color: Colors.grey[600]),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
+                )
+                : _buildPrescriptionList(),
+      ),
+    );
+  }
+
+  Widget _buildPrescriptionList() {
+    return ListView.builder(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+      itemCount: prescriptions.length,
+      itemBuilder: (context, index) {
+        final p = prescriptions[index];
+        return Card(
+          elevation: 4,
+          shadowColor: Colors.black.withOpacity(0.1),
+          margin: const EdgeInsets.symmetric(vertical: 8),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    CircleAvatar(
+                      backgroundColor: Colors.teal.shade100,
+                      child: const Icon(
+                        Icons.local_hospital,
+                        color: Colors.teal,
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("📧 Email: ${p['email']}"),
-                          Text("👨‍⚕️ Doctor: ${p['name']}"),
-                          Text("🗒 Transcription: ${p['transcription']}"),
-                          const SizedBox(height: 8),
-                          buildSoapNote(p['soap_note']),
+                          Text(
+                            "Doctor: ${p['name'] ?? 'N/A'}",
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            "Patient: ${p['email'] ?? 'N/A'}",
+                            style: TextStyle(color: Colors.grey[600]),
+                          ),
                         ],
                       ),
                     ),
-                  );
-                },
-              ),
+                  ],
+                ),
+                const Divider(height: 24, thickness: 1),
+                const Text(
+                  "Transcription",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                    color: Colors.black54,
+                  ),
+                ),
+                const SizedBox(height: 6),
+                Text(
+                  p['transcription'] ?? 'No transcription available.',
+                  style: TextStyle(color: Colors.grey[800], height: 1.5),
+                ),
+                const SizedBox(height: 16),
+                buildSoapNote(p['soap_note']),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }
