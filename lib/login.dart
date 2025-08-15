@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:health_broo/dashboard.dart';
 import 'package:health_broo/doctordash.dart';
 import 'package:health_broo/doctorform.dart';
@@ -86,97 +87,116 @@ class _LoginState extends State<Login> {
     return Scaffold(
       appBar: AppBar(title: Text('HealthBro')),
 
-      body: Center(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Spacer(),
-            Card(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(height: 15),
-                    Center(
-                      child: Text(
-                        'Login Page',
-                        style: TextStyle(
-                          fontSize: 18,
-                          color: Colors.cyan[700],
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+      body: SingleChildScrollView(
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Center(child: Image.asset("image/front.png", height: 250)),
+
+                SizedBox(height: 10),
+
+                Center(
+                  child: Text(
+                    'WELCOME BACK !!',
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: const Color.fromARGB(255, 255, 31, 154),
+                      fontWeight: FontWeight.bold,
                     ),
-                    SizedBox(height: 10),
-                    TextField(
-                      controller: emailcontroller,
-                      decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.email_outlined),
-                        labelText: 'Enter registered Email Address',
-                        border: OutlineInputBorder(),
-                      ),
-                      keyboardType: TextInputType.emailAddress,
+                  ),
+                ),
+
+                SizedBox(height: 10),
+
+                TextField(
+                  controller: emailcontroller,
+                  decoration: InputDecoration(
+                    prefixIcon: Icon(Icons.email_outlined),
+                    labelText: 'Enter registered Email Address',
+                    border: OutlineInputBorder(),
+                  ),
+                  keyboardType: TextInputType.emailAddress,
+                ),
+
+                SizedBox(height: 10),
+
+                TextField(
+                  controller: passwordcontroller,
+                  decoration: InputDecoration(
+                    prefixIcon: Icon(Icons.lock_clock_outlined),
+                    labelText: 'Enter password',
+                    border: OutlineInputBorder(),
+                  ),
+                  keyboardType: TextInputType.visiblePassword,
+                  obscureText: true,
+                ),
+
+                SizedBox(height: 15),
+
+                ElevatedButton(
+                  onPressed: () {
+                    logIn();
+                  },
+                  style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.zero,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
                     ),
-
-                    SizedBox(height: 10),
-
-                    TextField(
-                      controller: passwordcontroller,
-                      decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.lock_clock_outlined),
-                        labelText: 'Enter password',
-                        border: OutlineInputBorder(),
+                  ),
+                  child: Ink(
+                    height: 60,
+                    decoration: BoxDecoration(
+                      gradient: const LinearGradient(
+                        colors: [
+                          Color.fromARGB(255, 209, 106, 157),
+                          Color.fromARGB(255, 212, 145, 190),
+                        ],
+                        begin: Alignment.centerLeft,
+                        end: Alignment.centerRight,
                       ),
-                      keyboardType: TextInputType.visiblePassword,
-                      obscureText: true,
+                      borderRadius: BorderRadius.circular(16),
                     ),
-
-                    SizedBox(height: 15),
-
-                    ElevatedButton(
-                      onPressed: () {
-                        logIn();
-                      },
-                      style: ButtonStyle(
-                        backgroundColor: WidgetStatePropertyAll(
-                          const Color.fromARGB(255, 112, 156, 156),
-                        ),
-                        shape: WidgetStatePropertyAll(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                        ),
-                      ),
+                    child: Container(
+                      height: 60,
+                      padding: const EdgeInsets.symmetric(vertical: 22),
+                      alignment: Alignment.center,
                       child: Text(
                         'LOGIN',
-                        style: TextStyle(color: Colors.white, fontSize: 12),
+                        style: GoogleFonts.manrope(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
-
-                    SizedBox(height: 15),
-
-                    InkWell(
-                      onTap: () {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(builder: (context) => Register()),
-                        );
-                      },
-                      hoverColor: Colors.blue[300],
-                      child: Text(
-                        'New user? Create an account',
-                        style: TextStyle(fontSize: 12),
-                      ),
-                    ),
-
-                    SizedBox(height: 10),
-                  ],
+                  ),
                 ),
-              ),
+                SizedBox(height: 10),
+
+                TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => Register()),
+                    );
+                  },
+                  child: Text(
+                    'New user? Create an account',
+                    style: GoogleFonts.manrope(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                      color: const Color.fromARGB(255, 49, 49, 49),
+                    ),
+                  ),
+                ),
+
+                SizedBox(height: 12),
+              ],
             ),
-            Spacer(),
-          ],
+          ),
         ),
       ),
     );

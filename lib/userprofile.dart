@@ -48,7 +48,6 @@ class _UserprofileState extends State<Userprofile> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 100,
         automaticallyImplyLeading: false,
         flexibleSpace: Padding(
           padding: const EdgeInsets.only(top: 20, left: 16, right: 16),
@@ -92,82 +91,117 @@ class _UserprofileState extends State<Userprofile> {
       body:
           userData == null
               ? const Center(child: CircularProgressIndicator())
-              : Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: ListView(
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+              : Stack(
+                children: [
+                  Positioned(
+                    top: -50,
+                    left: -50,
+                    child: Container(
+                      height: 200,
+                      width: 200,
+                      decoration: const BoxDecoration(
+                        color: Color.fromARGB(255, 201, 94, 142),
+                        borderRadius: BorderRadius.only(
+                          bottomRight: Radius.circular(150),
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  // Background bottom-right shape
+                  Positioned(
+                    bottom: -50,
+                    right: -50,
+                    child: Container(
+                      height: 200,
+                      width: 200,
+                      decoration: const BoxDecoration(
+                        color: Color.fromARGB(255, 201, 94, 142),
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(150),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 25),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ListView(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
                       children: [
-                        Center(
-                          child: Text(
-                            '${userData!['name']}'.toUpperCase(),
-
-                            style: const TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 15),
-                        Text(
-                          'Personal Details',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
-                          ),
-                        ),
-                        SizedBox(height: 10),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            PersonalInformation(
-                              icon:
-                                  userData!['gender'] == 'Female'
-                                      ? Icons.woman
-                                      : Icons.male,
-                              detail: '${userData!['gender']}',
-                            ),
-                            PersonalInformation(
-                              icon: Icons.numbers_outlined,
-                              detail: 'Age:${userData!['age']}',
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 20),
-                        Text(
-                          'Contact Details',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
-                          ),
-                        ),
-                        SizedBox(height: 20),
+                            Center(
+                              child: Text(
+                                '${userData!['name']}'.toUpperCase(),
 
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              child: contact(
-                                icon: Icons.email,
-                                detail: '${userData!['email']}',
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
-                            Expanded(
-                              child: contact(
-                                icon: Icons.phone,
-                                detail: '${userData!['phone']}',
+                            SizedBox(height: 15),
+                            Text(
+                              'Personal Details',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
                               ),
                             ),
+                            SizedBox(height: 10),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                PersonalInformation(
+                                  icon:
+                                      userData!['gender'] == 'Female'
+                                          ? Icons.woman
+                                          : Icons.male,
+                                  detail: '${userData!['gender']}',
+                                ),
+                                PersonalInformation(
+                                  icon: Icons.numbers_outlined,
+                                  detail: 'Age:${userData!['age']}',
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 20),
+                            Text(
+                              'Contact Details',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                              ),
+                            ),
+                            SizedBox(height: 20),
+
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  child: contact(
+                                    icon: Icons.email,
+                                    detail: '${userData!['email']}',
+                                  ),
+                                ),
+                                Expanded(
+                                  child: contact(
+                                    icon: Icons.phone,
+                                    detail: '${userData!['phone']}',
+                                  ),
+                                ),
+                              ],
+                            ),
+
+                            const SizedBox(height: 10),
                           ],
                         ),
-
-                        const SizedBox(height: 10),
                       ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
     );
   }
@@ -195,7 +229,7 @@ class PersonalInformation extends StatelessWidget {
             padding: const EdgeInsets.all(25),
             child: Column(
               children: [
-                Icon(icon),
+                Icon(icon, color: Color.fromARGB(255, 201, 94, 142)),
                 SizedBox(height: 5),
                 Text(detail, style: TextStyle(fontSize: 18)),
               ],
@@ -216,7 +250,7 @@ class contact extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Icon(icon),
+        Icon(icon, color: Color.fromARGB(255, 201, 94, 142)),
         SizedBox(height: 5),
         Text(detail, style: TextStyle(fontSize: 18)),
       ],

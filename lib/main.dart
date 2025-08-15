@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:health_broo/extra.dart';
 import 'package:health_broo/firebase_options.dart';
 import 'package:health_broo/frontpage.dart';
 
@@ -30,11 +31,8 @@ class MyApp extends StatelessWidget {
         appBarTheme: AppBarTheme(
           toolbarHeight: 45,
           actionsPadding: EdgeInsets.all(8),
-          backgroundColor: Color.fromARGB(255, 152, 188, 201),
-          shadowColor: const Color.fromARGB(255, 173, 216, 230),
+          backgroundColor: const Color(0xFFF9F9F9),
           centerTitle: true,
-          //surfaceTintColor: const Color.fromARGB(255, 196, 191, 173),
-          //titleTextStyle: TextStyle(fontWeight: FontWeight.w500, fontSize: 20 , color: Colors.black ),
           titleTextStyle: GoogleFonts.alatsi(
             fontWeight: FontWeight.w200,
             fontSize: 20,
@@ -58,6 +56,11 @@ class MyApp extends StatelessWidget {
         ),
 
         inputDecorationTheme: InputDecorationTheme(
+          labelStyle: GoogleFonts.manrope(
+            fontSize: 16,
+            color: Colors.grey[600],
+            height: 1.5,
+          ),
           prefixIconColor: Color.fromARGB(255, 103, 138, 151),
           iconColor: Color.fromARGB(255, 64, 128, 151),
           fillColor: Colors.white,

@@ -34,7 +34,7 @@ class _RiskPredictionFormState extends State<RiskPredictionForm> {
 
     setState(() => isLoading = true);
 
-    final url = Uri.parse("http://127.0.0.1:5000/api/risk"); // Node server URL
+    final url = Uri.parse("http://127.0.0.1:5000/api/risk");
     final body = {
       "symptoms": symptomsController.text,
       "past_medical_history": historyController.text,

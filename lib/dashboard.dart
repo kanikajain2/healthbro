@@ -379,6 +379,8 @@ class _DashboardState extends State<Dashboard> {
                           ),
                         ],
                       ),
+
+                      SizedBox(height: 15),
                       Positioned(
                         bottom: 30,
                         right: 10,

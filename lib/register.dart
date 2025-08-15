@@ -2,6 +2,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:health_broo/frontpage.dart';
 import 'package:health_broo/login.dart';
 
 class Register extends StatefulWidget {
@@ -68,7 +70,19 @@ class _RegisterState extends State<Register> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('HealthBro')),
+      appBar: AppBar(
+        title: Text('HealthBro'),
+        automaticallyImplyLeading: false,
+        flexibleSpace: IconButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => HealthBroWelcomePage()),
+            );
+          },
+          icon: Icon(Icons.arrow_back),
+        ),
+      ),
       body: SingleChildScrollView(
         child: Center(
           child: Column(
@@ -79,16 +93,12 @@ class _RegisterState extends State<Register> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(height: 10),
+                      SizedBox(height: 4),
 
                       Center(
                         child: Text(
-                          'Create an Account',
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: Color.fromARGB(255, 103, 141, 155),
-                            fontWeight: FontWeight.bold,
-                          ),
+                          'Create an Account'.toUpperCase(),
+                          style: GoogleFonts.manrope(color: Colors.indigo),
                         ),
                       ),
                       SizedBox(height: 10),
@@ -121,9 +131,9 @@ class _RegisterState extends State<Register> {
                           focusColor: Colors.grey[230],
                           dropdownColor: const Color.fromARGB(
                             255,
-                            175,
-                            230,
-                            222,
+                            186,
+                            113,
+                            201,
                           ),
                           menuWidth: 210,
                           value: selectedValue,
@@ -161,9 +171,9 @@ class _RegisterState extends State<Register> {
                           focusColor: Colors.grey[230],
                           dropdownColor: const Color.fromARGB(
                             255,
-                            175,
-                            230,
-                            222,
+                            186,
+                            113,
+                            201,
                           ),
                           menuWidth: 210,
                           value: selectedValues,
@@ -269,32 +279,56 @@ class _RegisterState extends State<Register> {
                           registerUser();
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color.fromARGB(
-                            255,
-                            112,
-                            156,
-                            156,
-                          ),
+                          padding: EdgeInsets.zero,
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5),
+                            borderRadius: BorderRadius.circular(16),
                           ),
+                          elevation: 8,
+                          shadowColor: const Color(0xFF6A7FDB),
                         ),
-                        child: Text(
-                          'Register',
-                          style: TextStyle(color: Colors.white, fontSize: 12),
+                        child: Ink(
+                          height: 60,
+                          decoration: BoxDecoration(
+                            gradient: const LinearGradient(
+                              colors: [
+                                Color.fromARGB(255, 132, 147, 212),
+                                Color.fromARGB(255, 129, 89, 156),
+                              ],
+                              begin: Alignment.centerLeft,
+                              end: Alignment.centerRight,
+                            ),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Container(
+                            height: 60,
+                            padding: const EdgeInsets.symmetric(vertical: 18),
+                            alignment: Alignment.center,
+                            child: Text(
+                              'REGISTER',
+                              style: GoogleFonts.manrope(
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
                         ),
                       ),
-                      SizedBox(height: 15),
-                      InkWell(
-                        onTap: () {
-                          Navigator.pushReplacement(
+                      SizedBox(height: 10),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => Login()),
+                            MaterialPageRoute(builder: (_) => Login()),
                           );
                         },
                         child: Text(
-                          "LOGIN (if already have an account)",
-                          style: TextStyle(fontSize: 12),
+                          'I already have an account',
+                          style: GoogleFonts.manrope(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.grey[700],
+                          ),
                         ),
                       ),
                       SizedBox(height: 10),
